@@ -2,6 +2,8 @@ package com.skilldistillery.filmquery.entities;
 
 import java.util.List;
 
+import com.skilldistillery.filmquery.database.DatabaseAccessorObject;
+
 public class Actor {
 	private int id;
 	private String firstName;
@@ -14,6 +16,9 @@ public class Actor {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		
+		DatabaseAccessorObject dao = new DatabaseAccessorObject();
+		this.films = dao.findFilmsByActorId(id);
 	}
 
 	
@@ -73,6 +78,9 @@ public class Actor {
 	// hashcode
 	// equals
 	
-	
+	@Override
+	public String toString() {
+		return "Actor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+	}
 	
 }
