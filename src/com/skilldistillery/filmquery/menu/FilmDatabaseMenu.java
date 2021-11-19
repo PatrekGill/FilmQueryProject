@@ -11,6 +11,10 @@ public class FilmDatabaseMenu extends Menu {
 		super(scanner);
 	}
 	
+	
+	/* ------------------------------------------------
+	    openMainMenu
+	------------------------------------------------ */
 	public void openMainMenu() {
 		int choice;
 		boolean quit = false;
@@ -49,6 +53,9 @@ public class FilmDatabaseMenu extends Menu {
 	}
 	
 	
+	/* ------------------------------------------------
+	    lookUpFilmById
+	------------------------------------------------ */	
 	private void lookUpFilmById() {
 		int idToSearchFor;
 		boolean quit = false;
@@ -84,6 +91,11 @@ public class FilmDatabaseMenu extends Menu {
             
 		} while (!quit);
 	}
+	
+	
+	/* ------------------------------------------------
+	    lookUpFilmsByKeywords
+	------------------------------------------------ */	
 }
 
 
