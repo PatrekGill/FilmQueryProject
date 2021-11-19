@@ -1,9 +1,5 @@
 package com.skilldistillery.filmquery.entities;
 
-import java.util.List;
-
-import com.skilldistillery.filmquery.database.DatabaseAccessorObject;
-
 public class Actor {
 	private int id;
 	private String firstName;
