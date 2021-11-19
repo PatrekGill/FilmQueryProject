@@ -80,7 +80,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		
 		try {
 			// get sql results
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			Connection connection = openConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, filmId);
 			ResultSet resultSet = statement.executeQuery();
@@ -115,14 +115,13 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			+ 	"WHERE id = ?";
 
 		try {
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			Connection connection = openConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, actorId);
 			ResultSet resultSet = statement.executeQuery();
 			
 			if (resultSet.next()) {
 				actor = createActorFromResultSet(resultSet);
-				actor.addAllFilms(findFilmsByActorId(actorId));
 			}
 			
 			resultSet.close();
@@ -155,7 +154,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		
 		try {
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			Connection connection = openConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, actorId);
 			ResultSet resultSet = statement.executeQuery();
@@ -194,7 +193,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			+ 	"WHERE film_actor.film_id = ?";
 
 		try {
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			Connection connection = openConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, filmId);
 			ResultSet resultSet = statement.executeQuery();
