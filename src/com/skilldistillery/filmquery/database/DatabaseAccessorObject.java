@@ -15,9 +15,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 	}
 
@@ -79,7 +80,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		
 		try {
 			// get sql results
-			Connection connection = openConnection();
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, filmId);
 			ResultSet resultSet = statement.executeQuery();
@@ -114,7 +115,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			+ 	"WHERE id = ?";
 
 		try {
-			Connection connection = openConnection();
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, actorId);
 			ResultSet resultSet = statement.executeQuery();
@@ -123,12 +124,16 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				actor = createActorFromResultSet(resultSet);
 				actor.addAllFilms(findFilmsByActorId(actorId));
 			}
-
+			
+			resultSet.close();
+			statement.close();
+			connection.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
 		}
-
+		
 		return actor;
 	}
 	
@@ -150,7 +155,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		
 		try {
-			Connection connection = openConnection();
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, actorId);
 			ResultSet resultSet = statement.executeQuery();
@@ -179,6 +184,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	------------------------------------------------ */
 	@Override
 	public List<Actor> findActorsByFilmId(int filmId) {
+		List<Actor> actors = new ArrayList<>();
+		
 		String sql = 
 				"SELECT * "
 			+ 	"FROM actor "
@@ -187,14 +194,14 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			+ 	"WHERE film_actor.film_id = ?";
 
 		try {
-			// get sql results
-			Connection connection = openConnection();
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, filmId);
 			ResultSet resultSet = statement.executeQuery();
 			
-			if (resultSet.next()) {
-				
+			while (resultSet.next()) {
+				Actor actor = createActorFromResultSet(resultSet);
+				actors.add(actor);
 			}
 			
 			resultSet.close();
@@ -205,7 +212,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			e.printStackTrace();
 			
 		}
-		return null;
+		
+		
+		return actors;
 	}
 
 }

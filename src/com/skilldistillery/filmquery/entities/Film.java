@@ -189,19 +189,24 @@ public class Film {
 
 	@Override
 	public String toString() {
-		String string = "";
-		string += "ID: " + id;
-		string += "\nTitle: " + title;
-		string += "\nDescription: " + description;
-		string += "\nRelease Year: " + releaseYear;
-		string += "\nLanguage ID: " + languageId;
-		string += "\nRental Duration: " + rentalDuration;
-		string += "\nRental Rate: " + rentalRate;
-		string += "\nLength: " + length;
-		string += "\nReplacement Cost: " + replacementCost;
-		string += "\nRating: " + rating;
-		string += "\nSpecial Features: " + specialFeatures;
-		string += "\nActors: " + actors;
+		String string = "Film Info:";
+		string += "\n\tTitle: " + title;
+		string += "\n\tID: " + id;
+		string += "\n\tDescription: " + description;
+		string += "\n\tRelease Year: " + releaseYear;
+		string += "\n\tLanguage ID: " + languageId;
+		string += "\n\tRental Duration: " + rentalDuration;
+		string += "\n\tRental Rate: " + rentalRate;
+		string += "\n\tLength: " + length;
+		string += "\n\tReplacement Cost: " + replacementCost;
+		string += "\n\tRating: " + rating;
+		string += "\n\tSpecial Features: " + specialFeatures;
+		if (actors != null && actors.size() > 1) {
+			string += "\n\tActors:";
+			for (Actor actor : actors) {
+				string += "\n\t\t" + actor;
+			}
+		}	
 		
 		return string;
 	}

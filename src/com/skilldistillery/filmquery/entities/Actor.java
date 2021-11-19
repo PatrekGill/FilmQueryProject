@@ -8,17 +8,11 @@ public class Actor {
 	private int id;
 	private String firstName;
 	private String lastName;
-	private List<Film> films;
 	
-	public Actor() {
-	}
 	public Actor(int id, String firstName, String lastName) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		
-		DatabaseAccessorObject dao = new DatabaseAccessorObject();
-		this.films = dao.findFilmsByActorId(id);
 	}
 
 	
@@ -53,34 +47,17 @@ public class Actor {
 		this.lastName = lastName;
 	}
 	
-	
-	/* ------------------------------------------------
-	    films method
-	------------------------------------------------ */
-	public boolean addFilm(Film film) {
-		return films.add(film);
-	}
-	public Film removeFilm(int index) {
-		return films.remove(index);
-	}
-	public boolean removeFilm(Film film) {
-		return films.remove(film);
-	}
-	public void addAllFilms(List<Film> films) {
-		this.films.addAll(films);
-	}
 
 	
 	/* ------------------------------------------------
 	   	Misc
 	------------------------------------------------ */
-	// toString
 	// hashcode
 	// equals
 	
 	@Override
 	public String toString() {
-		return "Actor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+		return String.format("ID: %-7s Name: %s %s",id,firstName,lastName);
 	}
 	
 }
