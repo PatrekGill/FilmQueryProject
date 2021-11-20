@@ -201,6 +201,7 @@ public class Film {
 		string += "\n\tReplacement Cost: " + replacementCost;
 		string += "\n\tRating: " + rating;
 		string += "\n\tSpecial Features: " + specialFeatures;
+		
 		if (actors != null && actors.size() > 1) {
 			string += "\n\tActors:";
 			for (Actor actor : actors) {
@@ -211,4 +212,14 @@ public class Film {
 		return string;
 	}
 	
+	
+	public String toStringSimple() {
+		String string = "Film Info:";
+		string += "\n\tTitle: " + title;
+		string += "\n\tDescription: " + description;
+		string += "\n\tRelease Year: " + releaseYear;
+		string += "\n\tLanguage ID: " + languageId;
+		
+		return string;
+	}
 }

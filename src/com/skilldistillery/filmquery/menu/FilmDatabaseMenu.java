@@ -82,7 +82,7 @@ public class FilmDatabaseMenu extends Menu {
             	if (film == null) {
             		System.out.println("Could not find a film with the id: " + idToSearchFor);
             	} else {
-            		System.out.println(film);
+            		System.out.println(film.toStringSimple());
             	}
             	
             }
