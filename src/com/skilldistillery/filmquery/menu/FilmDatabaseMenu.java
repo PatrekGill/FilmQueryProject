@@ -107,7 +107,7 @@ public class FilmDatabaseMenu extends Menu {
 			System.out.println("Enter In the Keyword to search film titles and descriptions");
 			System.out.println("Type '\\exit' to return to the Main Menu");
 	        System.out.println("=======================================");
-	        searchTerm = getNextLine("Keyword: ");
+	        searchTerm = getNextLine("Search: ");
 	        
 	        
 	        if (searchTerm.equals("\\exit")) {
@@ -124,6 +124,7 @@ public class FilmDatabaseMenu extends Menu {
 	        		for (Film film : films) {
 						System.out.println(film.toStringSimple());
 					}
+	        		System.out.println("Returned " + films.size() + " entries for: " + searchTerm);
 	        	}
 	        	
 	        }
