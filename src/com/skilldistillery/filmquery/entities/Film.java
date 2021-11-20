@@ -220,8 +220,9 @@ public class Film {
 		String string = "Film Info:";
 		
 		string += "\n\tTitle: " + title;
-		string += "\n\tDescription: " + description;
 		string += "\n\tRelease Year: " + releaseYear;
+		string += "\n\tDescription: " + description;
+		string += "\n\tRating: " + rating;
 		string += "\n\tLanguage: " + language;
 		
 		if (actors != null && actors.size() > 1) {
