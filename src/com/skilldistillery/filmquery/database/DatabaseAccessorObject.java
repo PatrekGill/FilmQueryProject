@@ -260,11 +260,13 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				"SELECT * "
 			+ 	"FROM film "
 			+ 	"WHERE description LIKE ? OR title LIKE ?";
-
+		
 		try {
 			Connection connection = openConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, "%" + keyword + "%");
+			keyword = "%" + keyword + "%";
+			statement.setString(1, keyword);
+			statement.setString(2, keyword);
 			ResultSet resultSet = statement.executeQuery();
 			
 			while (resultSet.next()) {
