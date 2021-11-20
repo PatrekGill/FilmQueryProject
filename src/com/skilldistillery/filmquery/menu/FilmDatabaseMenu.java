@@ -1,5 +1,6 @@
 package com.skilldistillery.filmquery.menu;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.database.DatabaseAccessorObject;
@@ -38,7 +39,7 @@ public class FilmDatabaseMenu extends Menu {
                     break;
                 }
                 case 2: {
-                    
+                	lookUpFilmsByKeywords();
                     break;
                 }
                 default: {
@@ -95,7 +96,42 @@ public class FilmDatabaseMenu extends Menu {
 	
 	/* ------------------------------------------------
 	    lookUpFilmsByKeywords
-	------------------------------------------------ */	
+	------------------------------------------------ */
+	private void lookUpFilmsByKeywords() {
+		String searchTerm;
+		boolean quit = false;
+		
+		do {
+			System.out.println("\n=======================================");
+			System.out.println("Film Keyword Search");
+			System.out.println("Enter In the Keyword to search film titles and descriptions");
+			System.out.println("Type '\\exit' to return to the Main Menu");
+	        System.out.println("=======================================");
+	        searchTerm = getNextLine("Keyword: ");
+	        
+	        
+	        if (searchTerm.equals("\\exit")) {
+	        	System.out.println("Returning to main menu...");
+	        	quit = true;
+	        	
+	        } else {
+	        	DatabaseAccessorObject dao = new DatabaseAccessorObject();
+	        	List<Film> films = dao.findFilmsByKeyword(searchTerm);
+	        	
+	        	if (films.size() == 0) {
+	        		System.out.println("Could not find any films with the term: " + searchTerm);
+	        	} else {
+	        		for (Film film : films) {
+						System.out.println(film.toStringSimple());
+					}
+	        	}
+	        	
+	        }
+	        
+	        System.out.println(); // gap in console
+	        
+		} while (!quit);
+	}
 }
 
 

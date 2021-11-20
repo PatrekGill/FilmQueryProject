@@ -106,6 +106,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 	
 	
+	
 	/* ------------------------------------------------
 	    findFilmById
 	------------------------------------------------ */
@@ -246,6 +247,42 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		
 		
 		return actors;
+	}
+	
+	
+	/* ------------------------------------------------
+	    findFilmsByKeyword
+	----------------------------------------------- */
+	public List<Film> findFilmsByKeyword(String keyword) {
+		List<Film> films = new ArrayList<>();
+		
+		String sql = 
+				"SELECT * "
+			+ 	"FROM film "
+			+ 	"WHERE description LIKE ? OR title LIKE ?";
+
+		try {
+			Connection connection = openConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, "%" + keyword + "%");
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				Film film = createFilmFromResultSet(resultSet);
+				films.add(film);
+			}
+			
+			resultSet.close();
+			statement.close();
+			connection.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+		return films;
 	}
 
 }
