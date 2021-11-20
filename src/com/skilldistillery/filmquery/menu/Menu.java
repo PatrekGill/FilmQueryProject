@@ -42,33 +42,6 @@ public abstract class Menu {
         return input;
     }
 
-
-    /* ------------------------------------------------
-        getNextDouble
-    ------------------------------------------------ */
-    protected double getNextDouble(String prompt) {
-        double input;
-        boolean hasNext;
-        while (true) {
-            System.out.print(prompt);
-
-            hasNext = scanner.hasNextDouble();
-            if (hasNext) {
-                input = scanner.nextDouble();
-                scanner.nextLine();
-
-                break;
-
-            } else {
-                printInvalidEntry();
-                scanner.nextLine();
-
-            }
-        }
-
-        return input;
-    }
-
     
     /* ------------------------------------------------
         getNextLine
