@@ -18,11 +18,12 @@ public class Film {
 	private String rating;
 	private String specialFeatures;
 	private List<Actor> actors;
+	private String language;
 	
 	
 	public Film(
 			int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
-			double rentalRate, int length, double replacementCost, String rating, String specialFeatures
+			double rentalRate, int length, double replacementCost, String rating, String specialFeatures, String language
 		) {
 		this.id = id;
 		this.title = title;
@@ -35,6 +36,7 @@ public class Film {
 		this.replacementCost = replacementCost;
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
+		this.language = language;
 		
 		DatabaseAccessorObject dao = new DatabaseAccessorObject();
 		this.actors = dao.findActorsByFilmId(id);
@@ -195,6 +197,7 @@ public class Film {
 		string += "\n\tDescription: " + description;
 		string += "\n\tRelease Year: " + releaseYear;
 		string += "\n\tLanguage ID: " + languageId;
+		string += "\n\tLanguage: " + language;
 		string += "\n\tRental Duration: " + rentalDuration;
 		string += "\n\tRental Rate: " + rentalRate;
 		string += "\n\tLength: " + length;
@@ -215,10 +218,18 @@ public class Film {
 	
 	public String toStringSimple() {
 		String string = "Film Info:";
+		
 		string += "\n\tTitle: " + title;
 		string += "\n\tDescription: " + description;
 		string += "\n\tRelease Year: " + releaseYear;
-		string += "\n\tLanguage ID: " + languageId;
+		string += "\n\tLanguage: " + language;
+		
+		if (actors != null && actors.size() > 1) {
+			string += "\n\tActors:";
+			for (Actor actor : actors) {
+				string += "\n\t\t" + actor;
+			}
+		}
 		
 		return string;
 	}

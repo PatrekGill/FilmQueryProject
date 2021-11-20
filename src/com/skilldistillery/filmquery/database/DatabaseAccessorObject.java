@@ -43,20 +43,25 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	    createFilmFromResultSet
 	------------------------------------------------ */
 	private Film createFilmFromResultSet(ResultSet resultSet) throws SQLException {
+		int languageId = resultSet.getInt("language_id");
+		
 		return new Film(
 			resultSet.getInt("id"),
 			resultSet.getString("title"), 
 			resultSet.getString("description"), 
 			resultSet.getInt("release_year"), 
-			resultSet.getInt("language_id"), 
+			languageId, 
 			resultSet.getInt("rental_duration"),
 			resultSet.getDouble("rental_rate"),
 			resultSet.getInt("length"),
 			resultSet.getDouble("replacement_cost"),
 			resultSet.getString("rating"),
-			resultSet.getString("special_features")	
+			resultSet.getString("special_features"),
+			getLanguageNameById(languageId)
 		);
 	}
+	
+	
 	
 	/* ------------------------------------------------
 	    createActorFromResultSet
@@ -70,6 +75,37 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 	
 	
+	
+	/* ------------------------------------------------
+	    getLanguageNameById
+	------------------------------------------------ */
+	public String getLanguageNameById(int languageId) {
+		String string = "";
+		String sql = "SELECT * FROM language WHERE id = ?";
+		
+		try {
+			Connection connection = openConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, languageId);
+			ResultSet resultSet = statement.executeQuery();
+			
+			if (resultSet.next()) {
+				string = resultSet.getString("name");
+			}
+			
+			resultSet.close();
+			statement.close();
+			connection.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+		return string;	
+	}
+	
+	
 	/* ------------------------------------------------
 	    findFilmById
 	------------------------------------------------ */
@@ -79,7 +115,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		String sql = "SELECT * FROM film WHERE id = ?";
 		
 		try {
-			// get sql results
 			Connection connection = openConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, filmId);
@@ -109,10 +144,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public Actor findActorById(int actorId) {
 		Actor actor = null;
 		
-		String sql = 
-				"SELECT id, first_name, last_name "
-			+ 	"FROM actor "
-			+ 	"WHERE id = ?";
+		String sql = "SELECT id, first_name, last_name FROM actor WHERE id = ?";
 
 		try {
 			Connection connection = openConnection();
