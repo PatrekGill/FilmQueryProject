@@ -226,7 +226,7 @@ public class Film {
 		string += "\n\tRating: " + rating;
 		string += "\n\tLanguage: " + language;
 		
-		if (actors != null && actors.size() > 1) {
+		if (actors != null && actors.size() > 0) {
 			string += "\n\tActors:";
 			for (Actor actor : actors) {
 				string += "\n\t\t" + actor;
