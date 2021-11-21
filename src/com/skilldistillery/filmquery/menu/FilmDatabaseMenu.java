@@ -21,7 +21,7 @@ public class FilmDatabaseMenu extends Menu {
 		boolean quit = false;
 		
         do {
-            System.out.println("\n===========================");
+            System.out.println("\n===============================");
             System.out.println("0. Exit");
             System.out.println("1. Look up film by id");
             System.out.println("2. Search for films by keywords");
