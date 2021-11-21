@@ -225,12 +225,14 @@ public class Film {
 		string += "\n\tDescription: " + description;
 		string += "\n\tRating: " + rating;
 		string += "\n\tLanguage: " + language;
+		string += "\n\tActors:";
 		
 		if (actors != null && actors.size() > 0) {
-			string += "\n\tActors:";
 			for (Actor actor : actors) {
 				string += "\n\t\t" + actor;
 			}
+		} else {
+			string += "\n\t\tNone";
 		}
 		
 		return string;
