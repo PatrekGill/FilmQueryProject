@@ -1,7 +1,7 @@
 # FilmQueryProject
 
 ## Description
-This program is a console application for interacting with a very limited portion of a film database. Users can search part of the database for films through IDs and keyword searches. The goal of this project was familiarization of both SQL and Java. SQL server used for testing was the free version of MAMP ran locally on the same machine.
+This program is a console application for interacting with a very limited portion of a film database. Users can search part of the database for films through IDs and keyword searches. The goal of this project was familiarization of both SQL and Java. SQL server used for testing was the free version of MAMP ran locally on the same machine. Also included are a few basic JUnit tests.
 <br>
 <br>
 Unfortunately this project requires access to the relevant database in order to view its functionality.

@@ -80,7 +80,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	    getLanguageNameById
 	------------------------------------------------ */
 	public String getLanguageNameById(int languageId) {
-		String string = "";
+		String string = "Unknown Language (ID: " + languageId + ")";
 		String sql = "SELECT * FROM language WHERE id = ?";
 		
 		try {
@@ -171,47 +171,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	
 	
 	/* ------------------------------------------------
-	    findFilmsByActorId
-	------------------------------------------------ */
-	public List<Film> findFilmsByActorId(int actorId) {
-		List<Film> films = new ArrayList<>();
-		
-		String sql = 
-				"SELECT "
-			+ 		"id, title, description, release_year, language_id, rental_duration, "
-			+ 		"rental_rate, length, replacement_cost, rating, special_features "
-			+ 	"FROM film "
-			+ 		"JOIN film_actor "
-			+ 			"ON film.id = film_actor.film_id "
-			+ 	"WHERE actor_id = ?";
-
-		
-		try {
-			Connection connection = openConnection();
-			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, actorId);
-			ResultSet resultSet = statement.executeQuery();
-			
-			while (resultSet.next()) {
-				Film film = createFilmFromResultSet(resultSet);
-				films.add(film);
-			}
-			
-			resultSet.close();
-			statement.close();
-			connection.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		}
-
-		return films;
-	}
-	
-	
-	
-	/* ------------------------------------------------
 	    findActorsByFilmId
 	------------------------------------------------ */
 	@Override
@@ -255,6 +214,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	----------------------------------------------- */
 	public List<Film> findFilmsByKeyword(String keyword) {
 		List<Film> films = new ArrayList<>();
+		
+		if (keyword.equals("")) {
+			return films;
+		}
 		
 		String sql = 
 				"SELECT * FROM film "
