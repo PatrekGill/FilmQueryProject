@@ -257,8 +257,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		List<Film> films = new ArrayList<>();
 		
 		String sql = 
-				"SELECT * "
-			+ 	"FROM film "
+				"SELECT * FROM film "
 			+ 	"WHERE description LIKE ? OR title LIKE ?";
 		
 		try {
