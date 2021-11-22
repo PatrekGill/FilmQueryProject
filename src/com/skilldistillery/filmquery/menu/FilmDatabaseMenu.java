@@ -120,11 +120,14 @@ public class FilmDatabaseMenu extends Menu {
 	        	
 	        	if (films.size() == 0) {
 	        		System.out.println("Could not find any films with the term: " + searchTerm);
+	        		
 	        	} else {
 	        		for (Film film : films) {
 						System.out.println(film.toStringSimple());
 					}
-	        		System.out.println("Returned " + films.size() + " entries for: " + searchTerm);
+	        		
+	        		System.out.println("\nReturned " + films.size() + " entries for: " + searchTerm);
+	        		
 	        	}
 	        	
 	        }
